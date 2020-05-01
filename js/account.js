@@ -1,53 +1,44 @@
-let loggedIn;
-let name;
+//This does not affect anything on the backend. it is just to look nice and have the user be "logged in" across pages and refreshes.
+
+let loggedIn = sessionStorage.getItem('loggedIn') ? true : false;;
 
 $("#login-logout").click(() => {
-    if (!loggedIn) {
-        if (!name) {
-            name = prompt("Login with Username:", "User")
-            sessionStorage.setItem('username', name)
-        }
-    }
-
-    if (name != "null") {
-        $("#user-greeting").text(`Hello, ${name}`)
-    } else {
-        return;
-    }
-
-    sessionStorage.setItem('loggedIn', !loggedIn);
 
     loggedIn = !loggedIn;
+    sessionStorage.setItem('loggedIn', loggedIn);
 
     let output = loggedIn ? "Logged In" : "Logged Out"
-    console.log(`${name} is now ${output}`)
+    console.log(`User is now ${output}`)
+        // console.log(sessionStorage.getItem('loggedIn'))
 
     displayLoginBtn(loggedIn);
 
-    // console.log(`${sessionStorage.getItem('username')} is ${output}`)
 
 });
 
 let displayLoginBtn = (state) => {
     if (state) {
         $("#login-logout").text("Log Out")
+        $("#login-logout").addClass("btn-outline-danger")
+        $("#login-logout").removeClass("btn-outline-success")
+
         $("#user-greeting").removeClass("d-none")
     } else {
         $("#login-logout").text("Log In")
+        $("#login-logout").addClass("btn-outline-success")
+        $("#login-logout").removeClass("btn-outline-danger")
+
         $("#user-greeting").addClass("d-none")
     }
 };
 
 $(document).ready(() => {
-    loggedIn = sessionStorage.getItem('loggedIn') ? true : false;
-    name = sessionStorage.getItem('username');
+    loggedIn = sessionStorage.getItem('loggedIn') == "true" ? true : false;
+    // console.log(sessionStorage.getItem('loggedIn'))
 
     let output = loggedIn ? "Logged In" : "Logged Out"
-    if (name == "null") {
-        console.log(`${name} is ${output}`)
-        $("#user-greeting").text(`Hello, ${name}`)
-    } else {
-        console.log(`User is ${output}`)
-    }
+    $("#user-greeting").text(`Hello, User`)
+
+    // console.log(`User is ${output}`)
     displayLoginBtn(loggedIn)
 });

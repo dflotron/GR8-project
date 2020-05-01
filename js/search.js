@@ -1,38 +1,41 @@
-let database = {
+//let data;
+
+//MOCK DATA - delete this once we have database call working
+let data = {
     "00001": {
         title: "Abstract Algebra: Theory and Applications",
         author: "Thomas W. Judson",
-        departments: ["MATH", "APPM"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     },
     "00002": {
         title: "Structure and Interpretation of Computer Programs",
         author: "Gerald Jay Sussman and Hal Abelson",
-        departments: ["CSCI", "ATLS"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     },
     "00003": {
         title: "University Physics",
         author: "Hugh D. Young",
-        departments: ["MCEN", "PHYS"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     },
     "00004": {
         title: "The Cat in The Hat",
         author: "Dr. Seuss",
-        departments: ["WRTG", "EDUC"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     },
     "00005": {
         title: "Biology of Plants",
         author: "Peter H. Raven",
-        departments: ["BCHM", "EBIO", "MCDB"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     },
     "000324": {
         title: "The Odyssey",
         author: "Homer",
-        departments: ["CLAS", "ENGL", "GREK"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     },
     "000325": {
         title: "The Iliad",
         author: "Homer",
-        departments: ["CLAS", "ENGL", "GREK"]
+        isbn: "XXX-XX-XXXXX-XX-X"
     }
 
 }
@@ -64,9 +67,7 @@ function generateResultCard(book) {
             <div class="card-body my-0">
                 <h4 class="card-title">${book.title}</h4>
                 <p class="card-text">${book.author}</p>
-                <div class="container my-0 px-0">
-                    ${getDeptTags()}
-                </div>
+                <p class="card-text">ISBN:${book.isbn}</p>
                 <a class="btn btn-secondary mt-2" href="#">Product Page</a>
             </div>
         </div>
@@ -74,9 +75,9 @@ function generateResultCard(book) {
 }
 
 function filterResults(filter) {
-    for (bookId in database) {
-        if (database[bookId].title.toLowerCase().includes(filter.toLowerCase()) || filter.toLowerCase().includes(database[bookId].title.toLowerCase())) {
-            results[bookId] = database[bookId]
+    for (bookId in data) {
+        if (data[bookId].title.toLowerCase().includes(filter.toLowerCase()) || filter.toLowerCase().includes(data[bookId].title.toLowerCase())) {
+            results[bookId] = data[bookId]
         }
     }
 }
@@ -92,11 +93,18 @@ function displayResults() {
 }
 
 
+
+//This runs when the seart button is clicked
 $("#search-btn").click(() => {
     clearResults();
 
     let filter = $("#search-input").val();
     console.log(filter)
+
+    //LOAD DATA FROM DATABASE
+    //
+    //let data = 
+
     if (filter) {
         $("#no-search-terms").addClass("d-none")
         filterResults(filter);
